@@ -7,14 +7,12 @@ import java.util.List;
 public class Book
 {
     /* First, map each of the fields (columns) in your table to some public variables. */
-    public int BookID;
     public String Title;
     public int AuthorID;
 
     /* Next, prepare a constructor that takes each of the fields as arguements. */
-    public Book (int BookID, String Title, int AuthorID)
+    public Book (String Title, int AuthorID)
     {
-        this.BookID = BookID;        
         this.Title = Title;
         this.AuthorID = AuthorID;
     }
@@ -22,7 +20,7 @@ public class Book
     /* A toString method is vital so that your model items can be sensibly displayed as text. */
     @Override public String toString()
     {
-        return Title;
+        return "Title:" + Title + "   Author ID:" + AuthorID;
     }
 
     /* Different models will require different read and write methods. Here is an example 'loadAll' method 
@@ -42,7 +40,7 @@ public class Book
             {
                 try {                               // ...add each one to the list.
                     while (results.next()) {                                               
-                        list.add( new Book(results.getInt("BookID"), results.getString("Title"), results.getInt("AuthorID")));
+                        list.add( new Book(results.getString("Title"), results.getInt("AuthorID")));
                     }
                 }
                 catch (SQLException resultsexception)       // Catch any error processing the results.
@@ -69,7 +67,7 @@ public class Book
 
                 if (results != null)
                 {
-                    book = new Book(results.getInt("BookID"), results.getString("Title"), results.getInt("AuthorID"));
+                    book = new Book(results.getString("Title"), results.getInt("AuthorID"));
                 }
             }
         }
@@ -100,25 +98,9 @@ public class Book
         PreparedStatement statement;
 
         try{
-            if (BookID == 0){
-                statement = Application.database.newStatement("SELECT BookID FROM Books ORDER BY BookID DESC");             
-
-                if (statement != null)	{
-                    ResultSet results = Application.database.runQuery(statement);
-                    if (results != null){
-                        BookID = results.getInt("BookID") + 1;
-                    }
-                }
-                statement = Application.database.newStatement("INSERT INTO Books (BookID, Title, AuthorID) VALUES (?, ?, ?)");             
-                statement.setInt(1, BookID);
-                statement.setString(2, Title);
-                statement.setInt(3, AuthorID);         
-            } else{
-                statement = Application.database.newStatement("UPDATE Books SET Title = ?, AuthorID = ? WHERE BookID = ?");             
-                statement.setString(1, Title);
-                statement.setInt(2, AuthorID);   
-                statement.setInt(3, BookID);
-            }
+            statement = Application.database.newStatement("INSERT INTO Books (Title, AuthorID) VALUES (?, ?)");             
+            statement.setString(1, Title);
+            statement.setInt(2, AuthorID);         
 
             if (statement != null) {
                 Application.database.executeUpdate(statement);

@@ -7,13 +7,11 @@ import java.util.List;
 public class Author
 {
     /* First, map each of the fields (columns) in your table to some public variables. */
-    public int AuthorID;
     public String FirstName;
 
     /* Next, prepare a constructor that takes each of the fields as arguements. */
-    public Author(int AuthorID, String FirstName)
+    public Author(String FirstName)
     {
-        this.AuthorID = AuthorID;
         this.FirstName = FirstName;
 
     }
@@ -21,7 +19,7 @@ public class Author
     /* A toString method is vital so that your model items can be sensibly displayed as text. */
     @Override public String toString()
     {
-        return FirstName;
+        return "FirstName:  "  + FirstName;
     }
 
     /* Different models will require different read and write methods. Here is an example 'loadAll' method 
@@ -41,7 +39,7 @@ public class Author
             {
                 try {								// ...add each one to the list.
                     while (results.next()) {        			                           
-                        list.add( new Author(results.getInt("AuthorID"), results.getString("FirstName")));
+                        list.add( new Author(results.getString("FirstName")));
                     }
                 }
                 catch (SQLException resultsexception)       // Catch any error processing the results.
@@ -63,6 +61,22 @@ public class Author
                 Application.database.executeUpdate(statement);
             }
         } catch (SQLException resultsexception){
+            System.out.println("Database result processing error: " + resultsexception.getMessage());
+        }
+    }
+
+    public void save(){
+        PreparedStatement statement;
+
+        try{
+            statement = Application.database.newStatement("INSERT INTO Authors (FirstName) VALUES (?)");             
+            statement.setString(1, FirstName);       
+
+            if (statement != null) {
+                Application.database.executeUpdate(statement);
+            }
+        }
+        catch (SQLException resultsexception) {
             System.out.println("Database result processing error: " + resultsexception.getMessage());
         }
     }
