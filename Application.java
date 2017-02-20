@@ -74,12 +74,25 @@ public class Application
     }
 
     public static void addBook(){
-        Book newBook = new Book(3, "The Help", 1);
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the name of the book:");
+        String bookName = input.nextLine();
+        input.nextLine();
+        System.out.println("Enter the Author");
+        int author = input.nextInt();
+        input.nextLine();
+
+        Book newBook = new Book(bookName, author);
         newBook.save();
     }
 
     public static void addAuthor(){
-        // no save in category model class
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter author First Name:");
+        String FirstName = input.nextLine();
+
+        Author newAuthor = new Author(FirstName);
+        newAuthor.save();
     }
 
     public static void deleteBook(){
