@@ -7,12 +7,14 @@ import java.util.List;
 public class Book
 {
     /* First, map each of the fields (columns) in your table to some public variables. */
+    public int BookID;
     public String Title;
     public int AuthorID;
 
     /* Next, prepare a constructor that takes each of the fields as arguements. */
-    public Book (String Title, int AuthorID)
+    public Book (int BookID, String Title, int AuthorID)
     {
+        this.BookID = BookID;
         this.Title = Title;
         this.AuthorID = AuthorID;
     }
@@ -20,7 +22,7 @@ public class Book
     /* A toString method is vital so that your model items can be sensibly displayed as text. */
     @Override public String toString()
     {
-        return "Title:" + Title + "   Author ID:" + AuthorID;
+        return "Book ID: " + BookID + " Title: " + Title + " Author ID: " + AuthorID;
     }
 
     /* Different models will require different read and write methods. Here is an example 'loadAll' method 
@@ -40,7 +42,7 @@ public class Book
             {
                 try {                               // ...add each one to the list.
                     while (results.next()) {                                               
-                        list.add( new Book(results.getString("Title"), results.getInt("AuthorID")));
+                        list.add( new Book(results.getInt("BookID"), results.getString("Title"), results.getInt("AuthorID")));
                     }
                 }
                 catch (SQLException resultsexception)       // Catch any error processing the results.
@@ -67,7 +69,7 @@ public class Book
 
                 if (results != null)
                 {
-                    book = new Book(results.getString("Title"), results.getInt("AuthorID"));
+                    book = new Book(results.getInt("BookID"), results.getString("Title"), results.getInt("AuthorID"));
                 }
             }
         }

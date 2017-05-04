@@ -75,32 +75,44 @@ public class Application
 
     public static void addBook(){
         Scanner input = new Scanner(System.in);
+        int BookID=0;
         System.out.println("Enter the name of the book:");
-        String bookName = input.nextLine();
+        String BookName = input.nextLine();
         input.nextLine();
-        System.out.println("Enter the Author");
-        int author = input.nextInt();
+        System.out.println("Enter the Author ID");
+        int AuthorID = input.nextInt();
         input.nextLine();
 
-        Book newBook = new Book(bookName, author);
+        Book newBook = new Book(BookID, BookName, AuthorID);
         newBook.save();
     }
 
     public static void addAuthor(){
         Scanner input = new Scanner(System.in);
+        int AuthorID =0;
         System.out.println("Enter author First Name:");
         String FirstName = input.nextLine();
+        System.out.println("Enter author Second Name:");
+        String SecondName = input.nextLine();
 
-        Author newAuthor = new Author(FirstName);
+        Author newAuthor = new Author(AuthorID, FirstName, SecondName);
         newAuthor.save();
     }
 
     public static void deleteBook(){
-        Book.deleteById(1);
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter book ID to delete:");
+        int BookID = input.nextInt();
+
+        Book.deleteById(BookID);
     }
 
     public static void deleteAuthor(){
-        Author.deleteById(2);
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter author ID to delete:");
+        int AuthorID = input.nextInt();
+        
+        Author.deleteById(AuthorID);
     }
 
     public static void terminate()
