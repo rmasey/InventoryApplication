@@ -54,12 +54,12 @@ public class Author
         }
     }
 
-    public static void deleteById(int BookID)
+    public static void deleteById(int AuthorID)
     {
         try{
 
             PreparedStatement statement = Application.database.newStatement("DELETE FROM Authors WHERE AuthorID = ?");             
-            statement.setInt(1, BookID);
+            statement.setInt(1, AuthorID);
 
             if (statement != null){
                 Application.database.executeUpdate(statement);
