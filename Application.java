@@ -55,7 +55,7 @@ public class Application
     {
         ArrayList<Book> allTheBooks = new ArrayList<>();
 
-        Book.readAll(allTheBooks);
+        BookService.readAll(allTheBooks);
 
         for(Book b : allTheBooks) {
             System.out.println(b);
@@ -66,7 +66,7 @@ public class Application
     {
         ArrayList<Author> allTheAuthors = new ArrayList<>();
 
-        Author.readAll(allTheAuthors);
+        AuthorService.readAll(allTheAuthors);
 
         for(Author a : allTheAuthors) {
             System.out.println(a);
@@ -84,7 +84,7 @@ public class Application
         input.nextLine();
 
         Book newBook = new Book(BookID, BookName, AuthorID);
-        newBook.save();
+        BookService.save(newBook);
     }
 
     public static void addAuthor(){
@@ -96,7 +96,7 @@ public class Application
         String SecondName = input.nextLine();
 
         Author newAuthor = new Author(AuthorID, FirstName, SecondName);
-        newAuthor.save();
+        AuthorService.save(newAuthor);
     }
 
     public static void deleteBook(){
@@ -104,7 +104,7 @@ public class Application
         System.out.println("Enter book ID to delete:");
         int BookID = input.nextInt();
 
-        Book.deleteById(BookID);
+        BookService.deleteById(BookID);
     }
 
     public static void deleteAuthor(){
@@ -112,7 +112,7 @@ public class Application
         System.out.println("Enter author ID to delete:");
         int AuthorID = input.nextInt();
         
-        Author.deleteById(AuthorID);
+        AuthorService.deleteById(AuthorID);
     }
 
     public static void terminate()
