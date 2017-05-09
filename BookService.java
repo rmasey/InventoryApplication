@@ -88,7 +88,6 @@ public class BookService
             if (statement != null) {
                 Application.database.executeUpdate(statement);
             }
-            System.out.println("Book sucessfully added"); 
             
         }
         catch (SQLException resultsexception) {
