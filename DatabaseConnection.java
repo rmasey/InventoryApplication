@@ -3,6 +3,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import org.sqlite.SQLiteConfig;
+
 
 public class DatabaseConnection {
 
@@ -14,8 +16,10 @@ public class DatabaseConnection {
     {
         try             // There are many things that can go wrong in establishing a database connection...
         {         
+            SQLiteConfig config = new SQLiteConfig();  
+            config.enforceForeignKeys(true);  
             Class.forName("org.sqlite.JDBC");                               // ... a missing driver class ...
-            connection = DriverManager.getConnection("jdbc:sqlite:" + dbFile); // ... or an error with the file.
+            connection = DriverManager.getConnection("jdbc:sqlite:" + dbFile, config.toProperties()); // ... or an error with the file.
             System.out.println("Database connection successfully established.");
         } 
         catch (ClassNotFoundException cnfex)    // Catch any database driver error
